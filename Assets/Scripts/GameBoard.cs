@@ -89,13 +89,10 @@ public class GameBoard : MonoBehaviour
                 if ((y & 1) == 0) {
                     tile.IsAlternative = !tile.IsAlternative;
                 }
-
-                tile.Content = contentFactory.Get(GameTileContentType.Empty);
             }
         }
 
-        ToggleDestination(tiles[tiles.Length / 2]);
-        ToggleSpawnPoint(tiles[0]);
+        Clear();
     }
 
     public int SpawnPointCount => spawnPoints.Count;
@@ -242,5 +239,16 @@ public class GameBoard : MonoBehaviour
             tile.Content = contentFactory.Get(GameTileContentType.SpawnPoint);
             spawnPoints.Add(tile);
         }
+    }
+
+    public void Clear()
+    {
+        foreach (var tile in tiles) {
+            tile.Content = contentFactory.Get(GameTileContentType.Empty);
+        }
+        spawnPoints.Clear();
+        updatingContent.Clear();
+        ToggleDestination(tiles[tiles.Length / 2]);
+        ToggleSpawnPoint(tiles[0]);
     }
 }

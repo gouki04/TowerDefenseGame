@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7036f3ce2b92c0c4983fb11b2344db83, type: 3}
+  m_Name: Enemy Sphere Factory
+  m_EditorClassIdentifier: 
+  small:
+    prefab: {fileID: 8082073176560023623, guid: 4a1c8c4eb58a3f8498fc58d1c19bda0c,
+      type: 3}
+    scale:
+      min: 0.5
+      max: 0.6
+    speed:
+      min: 1.5
+      max: 2
+    pathOffset:
+      min: -0.3
+      max: 0.3
+    health:
+      min: 40
+      max: 50
+  medium:
+    prefab: {fileID: 8082073176560023623, guid: 2abfca4d9b0f32e47a03759518b8c337,
+      type: 3}
+    scale:
+      min: 0.9
+      max: 1
+    speed:
+      min: 0.8
+      max: 1.2
+    pathOffset:
+      min: -0.2
+      max: 0.2
+    health:
+      min: 90
+      max: 120
+  large:
+    prefab: {fileID: 8082073176560023623, guid: 6a7d34347bcc2a047b5800e559a9c308,
+      type: 3}
+    scale:
+      min: 1.2
+      max: 1.4
+    speed:
+      min: 0.5
+      max: 0.6
+    pathOffset:
+      min: -0.1
+      max: 0.1
+    health:
+      min: 500
+      max: 600

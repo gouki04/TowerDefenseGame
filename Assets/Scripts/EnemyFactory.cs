@@ -1,19 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu]
 public class EnemyFactory : GameObjectFactory
 {
+    [Serializable]
+    private class EnemyConfig
+    {
+        [SerializeField]
+        public Enemy prefab = default;
+
+        [SerializeField, FloatRangeSlider(0.5f, 2f)]
+        public FloatRange scale = new FloatRange(1f);
+
+        [SerializeField, FloatRangeSlider(0.2f, 5f)]
+        public FloatRange speed = new FloatRange(1f);
+
+        [SerializeField, FloatRangeSlider(-0.4f, 0.4f)]
+        public FloatRange pathOffset = new FloatRange(0f);
+
+        [SerializeField, FloatRangeSlider(10f, 1000f)]
+        public FloatRange health = new FloatRange(100f);
+    }
+
     [SerializeField]
-    private Enemy prefab = default;
-
-    [SerializeField, FloatRangeSlider(0.5f, 2f)]
-    private FloatRange scale = new FloatRange(1f);
-
-    [SerializeField, FloatRangeSlider(0.2f, 5f)]
-    private FloatRange speed = new FloatRange(1f);
-
-    [SerializeField, FloatRangeSlider(-0.4f, 0.4f)]
-    private FloatRange pathOffset = new FloatRange(0f);
+    private EnemyConfig small = default, medium = default, large = default;
 
     public void Reclaim(Enemy enemy)
     {
@@ -21,14 +32,27 @@ public class EnemyFactory : GameObjectFactory
         Destroy(enemy.gameObject);
     }
 
-    public Enemy Get()
+    private EnemyConfig GetConfig(EnemyType type)
     {
-        var instance = CreateGameObjectInstance(prefab);
+        switch(type) {
+            case EnemyType.Small: return small;
+            case EnemyType.Medium: return medium;
+            case EnemyType.Large: return large;
+        }
+        Debug.Assert(false, "Unsupported enemy type!");
+        return null;
+    }
+
+    public Enemy Get(EnemyType type = EnemyType.Medium)
+    {
+        var config = GetConfig(type);
+        var instance = CreateGameObjectInstance(config.prefab);
         instance.OriginFactory = this;
         instance.Initialize(
-            scale.RandomValueInRange, 
-            speed.RandomValueInRange,
-            pathOffset.RandomValueInRange
+            config.scale.RandomValueInRange,
+            config.speed.RandomValueInRange,
+            config.pathOffset.RandomValueInRange,
+            config.health.RandomValueInRange
         );
         return instance;
     }

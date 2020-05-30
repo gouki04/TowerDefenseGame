@@ -5,6 +5,8 @@ public class GameBehaviorCollection
 {
     private List<GameBehavior> behaviors = new List<GameBehavior>();
 
+    public bool IsEmpty => behaviors.Count == 0;
+
     public void Add(GameBehavior enemy)
     {
         behaviors.Add(enemy);
@@ -19,6 +21,13 @@ public class GameBehaviorCollection
                 behaviors.RemoveAt(lastIndex);
                 i -= 1;
             }
+        }
+    }
+
+    public void Clear()
+    {
+        for (var i = 0; i < behaviors.Count; ++i) {
+            behaviors[i].Recycle();
         }
     }
 }
