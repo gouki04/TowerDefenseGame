@@ -34,6 +34,7 @@ public class Shell : WarEntity
         d.y -= 9.81f * age;
         transform.localRotation = Quaternion.LookRotation(d);
 
+        // TODO 暂停或者慢镜头时，这里也要限制速度
         Game.SpawnExplosion().Initialize(p, 0.1f);
         return true;
     }
